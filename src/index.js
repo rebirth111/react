@@ -1,49 +1,28 @@
 import React, {Component} from 'react'
 import {render} from 'react-dom'
+import classNames from 'classnames'
 
-//这里是使用类的形式创建的组件，这是jsx的语法，但不是合法的js代码
-/* class App extends Component{
+import './index.css'
+
+
+ class App extends Component{
     render(){
+        const style={color:'red'}
         return (
             <div>
-                <h1>JSX原理!!!!</h1>
-                <p>类组件是继承React.Component的</p>
+                <h1 >元素中的样式</h1>
+                <ol>
+                    <li style={style}>使用style内联创建</li>
+                    <li className="has-text-red">使用class的方式，但是在react里class要写成className</li>
+                    <li className={classNames('a', {'b':true, 'c': false})}
+                    >要动态添加不同的className，就可以借助第三方的包叫classnames.这里就只有a，b，没有c</li>
+                    <li>stytle-components的使用</li>
+                </ol>
             </div>
         )
     }
-}  */
+}  
 
-
-//所以react在正真的渲染的时候会把上面的代码编译为下面这个样子来运行，下面的代码就是合法的js代码
-class App extends Component{
-    render(){
-        return(
-            //React.createElement是一个方法，用来创建元素，可以有很多的参数，前两个是固定的，第一个可以理解为标签名
-            //第二个可以理解为标签的属性
-            //剩下的，你就写更多的子元素吧
-            //React.createElement（type，[props], [...children]
-            React.createElement(
-                'div',
-                {
-                    className: 'app',
-                    id: 'appRoot'
-                },
-                React.createElement(
-                    'h1',
-                    {
-                        className: 'title'
-                    },
-                    'jsx原理'
-                ),
-                React.createElement(
-                    'p',
-                    null,
-                    '类组件是继承React.Component的'
-                )
-            )
-        )
-    }
-}
 
 
 render(
