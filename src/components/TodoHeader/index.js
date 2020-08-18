@@ -7,14 +7,14 @@ export default function TodoHeader(props) {
            {props.children} 
         </h1>
         <h2>{props.desc}</h2>
-    <p>{props.x+props.y}</p>
+   {/*  <p>{props.x+props.y}</p> */}
         </>
     )
 }
 TodoHeader.propTypes={
     desc:PropTypes.string.isRequired,
-    x:PropTypes.number.isRequired,
-    y:PropTypes.number.isRequired,
+/*     x:PropTypes.number.isRequired,
+    y:PropTypes.number.isRequired, */
     //children:PropTypes.isRequired
 }
 TodoHeader.defaultProps={
