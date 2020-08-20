@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
 import TodoItem from './TodoItem'
+import PropTypes from 'prop-types'
+
+
 export default class TodoList extends Component {
+    static propTypes={
+        todos:PropTypes.arrayOf(PropTypes.shape({
+            id:PropTypes.number.isRequired,
+            title:PropTypes.string.isRequired,
+            isRequired: PropTypes.bool.isRequired
+        })).isRequired,
+        onCompeletedChange: PropTypes.func
+    }
     render() {
         return (
             <ul>
@@ -14,6 +25,7 @@ export default class TodoList extends Component {
                             //   isCompleted={todo.isCompleted}
                             ///> 
                             <TodoItem
+                               onCompeletedChange={this.props.onCompeletedChange}
                                key={todo.id}
                                {...todo}
                                />
