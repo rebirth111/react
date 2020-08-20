@@ -1,10 +1,18 @@
-import React from 'react'
+import Rract,{useState} from 'react'
 import {render} from 'react-dom'
 
-
-import App from './App'
+const Counter=()=>{
+    const [count,setCount] =useState(0)
+    return(
+        <div>
+            <button onClick={()=>{setCount(count-1)}}>-</button>
+            <span>{count}</span>
+            <button onClick={()=>{setCount(count+1)}}>+</button>
+        </div>
+    )
+}
 
 render(
-    <App />,
+    <Counter />,
     document.querySelector('#root')
 )
