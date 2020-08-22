@@ -2,7 +2,9 @@ import React from 'react'
 import {render} from 'react-dom'
 
 import App from './App'
- render(
-     <App/>,
-     document.querySelector('#root')
- )
+import store from './store'
+
+render(
+    <App store={store}/>,
+    document.querySelector('#root')
+)
