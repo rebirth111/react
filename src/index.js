@@ -1,13 +1,14 @@
 import React from 'react'
-import {render} from 'react-dom'
-
-
-import {BrowserRouter as Router,Route} from 'react-router-dom'
+import ReactDOM from 'react-dom'
+import zhCN from 'antd/lib/locale-provider/zh_CN'
+import {LocaleProvider,ConfigProvider}from 'antd'
 
 import App from './App'
-render(
-    <Router>
-    <Route  component={App}/>
-    </Router>,
+ReactDOM.render(
+    <ConfigProvider prefixCls="nbfee">
+    <LocaleProvider locale={zhCN}>
+    <App />
+    </LocaleProvider>
+    </ConfigProvider>,
     document.querySelector('#root')
 )
