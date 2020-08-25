@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import XLSX from 'xlsx'
 import {
   Card, 
   Button, 
@@ -125,6 +126,25 @@ export default class ArticleList extends Component {
     })
   }
 
+  toExcel=()=>{
+    //在实际项目中，实际上这个功能是前端发送一个AJAX请求到后端，然后后端返回一个文件下载的地址
+    //组合数据
+    const data=[Object.keys(this.state.dataSource[0])]
+    for (let i=0;i<this.state.dataSource.length;i++){
+      data.push([
+        this.state.dataSource[i].id,
+        this.state.dataSource[i].title,
+        this.state.dataSource[i].author,
+        this.state.dataSource[i].amount,
+        moment(this.state.dataSource[i].createAt).format('YYYY年MM月DD日 hh:mm:ss')
+      ])
+    }
+    const ws=XLSX.utils.aoa_to_sheet(data);
+    const wb=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws, 'SheetJS');
+    XLSX.writeFile(wb, `articles-${this.state.offset/(this.state.limited+1)}-${moment().format('YYYYMMDDHHmmss')}.xlsx`)
+  }
+
   componentDidMount(){
     this.getData()
   }
@@ -133,7 +153,7 @@ export default class ArticleList extends Component {
             <Card 
             title="文章列表" 
             bordered={false}
-            extra={<Button>导出excel</Button>} 
+            extra={<Button onClick={this.toExcel}>导出excel</Button>} 
             >
                 <Table
                 rowKey={record=>record.id}
