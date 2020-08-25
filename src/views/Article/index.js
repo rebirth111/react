@@ -24,7 +24,9 @@ export default class ArticleList extends Component {
       dataSource: [],
       columns: [],
       total:0,
-      isLoading:false
+      isLoading:false,
+      offset: 0,
+      limited:10
     }
   }
   createColumns=(columnKeys)=>{
@@ -84,7 +86,7 @@ export default class ArticleList extends Component {
     this.setState({
       isLoading: true
     })
-    getArticles()
+    getArticles(this.state,this.state.linited)
     .then(resp=>{
       const columnKeys=Object.keys(resp.list[0])
       const columns=this.createColumns(columnKeys)
@@ -103,6 +105,26 @@ export default class ArticleList extends Component {
       })
     })
   }
+
+  onPageChange=(page,pageSize)=>{
+    this.setState({
+      offset:pageSize=(page-1),
+      limited:pageSize
+    },()=>{
+      this.getData()
+    })
+  }
+
+  onShowSizeChange=(current,size)=>{
+    //这里出去和产品聊的时候必须问清楚，究竟是回到首页还是留到当前页
+    this.setState({
+      offset:0,
+      limited:size
+    },()=>{
+      this.getData()
+    })
+  }
+
   componentDidMount(){
     this.getData()
   }
@@ -119,8 +141,14 @@ export default class ArticleList extends Component {
                 columns={this.state.columns}
                 loading={this.state.isLoading}
                  pagination={{
+                   current:this.state.offset/(this.state.limited+1),
                     total: this.state.total,
-                    hideOnSinglePage:true
+                    hideOnSinglePage:true,
+                    showQuickJumper:true,
+                    showSizeChanger:true,
+                    onChange:this.onPageChange,
+                    onShowSizeChange:this.onShowSizeChange,
+                    pageSizeOptions: ['10','15','20','30']
                 }}
                 />
             </Card>
