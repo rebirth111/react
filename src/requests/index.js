@@ -22,10 +22,14 @@ service.interceptors.response.use((resp)=>{
         message.error(resp.data.errMsg)
     }
 })
-
+ //获取文章列表
 export const getArticles=(offset=0,limited=10)=>{
     return service.post('/api/v1/articlelist',{
         offset,
         limited
     })
+}
+//通过id删除文章
+export const deleteArticleById=(id)=>{
+    return service.post(`/api/v1/articleDelete/${id}`)
 }
