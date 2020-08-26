@@ -33,7 +33,7 @@ class Frame extends Component {
       style={{height: '100%',borderRight: 0}}
       >
         {
-            this.props.menus.map(item=>{
+            this.props.menus.map(item=>{ 
                 return (
                 <Menu.Item key={item.pathname}>
                   <Icon type={item.icon} />
