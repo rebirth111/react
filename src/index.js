@@ -2,16 +2,20 @@ import React from 'react'
 import {render} from 'react-dom'
 import {HashRouter as Router, Route, Switch,Redirect} from 'react-router-dom'
 
+import {Provider} from 'react-redux'
+
 import zhCN from 'antd/lib/locale-provider/zh_CN'
 
 import App from './App'
 
+import store from './store'
 
 import {mainRoutes} from './routes'
 
 import './index.less'
 import { LocaleProvider } from 'antd'
 render(
+    <Provider store={store}>
     <LocaleProvider locale={zhCN}>
     <Router>
         <Switch>
@@ -28,6 +32,7 @@ render(
             <Redirect to="/404" />
         </Switch>
     </Router>
-    </LocaleProvider>,
+    </LocaleProvider>
+    </Provider>,
     document.querySelector('#root')
 )
