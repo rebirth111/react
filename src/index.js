@@ -19,10 +19,7 @@ render(
     <LocaleProvider locale={zhCN}>
     <Router>
         <Switch>
-            <Route path="/admin" render={(routerProps)=>{
-                //TODO权限，需要登录才能访问/admin
-                return <App {...routerProps}/>
-            }} />
+            <Route path="/admin" component={App} />
             {
                 mainRoutes.map(route=>{
                     return <Route key={route.pathname} path={route.pathname} component={route.component} />

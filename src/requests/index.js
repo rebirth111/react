@@ -6,6 +6,10 @@ const service=axios.create({
     baseURL: isDev ? 'http://rap2.taobao.org:38080/app/mock/262583' : ''
 })
 
+const service1=axios.create({
+    baseURL: isDev ? 'http://rap2.taobao.org:38080/app/mock/262583' : ''
+})
+
 service.interceptors.request.use((config)=>{
     config.data=Object.assign({},config.data,{
         //authToken: window.localStorage.getItem('authToken')
@@ -31,7 +35,7 @@ export const getArticles=(offset=0,limited=10)=>{
 }
 //通过id删除文章
 export const deleteArticleById=(id)=>{
-    return service.post(`/api/v1/articleDelete/${id}`)
+    return service1.post(`/api/v1/articleDelete/${id}`)
 }
 
 //通过id获取文章
@@ -53,3 +57,9 @@ export const getArticleAmount=()=>{
 export const getNotifications=()=>{
     return service.post('/api/v1/notifications')
 }
+
+//登录接口
+export const loginRequest=(userInfo)=>{
+    return service1.post('/api/v1/login',userInfo)
+}
+
