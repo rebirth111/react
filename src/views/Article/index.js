@@ -159,6 +159,8 @@ export default class ArticleList extends Component {
     .then(resp=>{
       const columnKeys=Object.keys(resp.list[0])
       const columns=this.createColumns(columnKeys)
+      //如果请求完成之后组件已经销毁，就不需要再setState
+      if(!this.updater.isMounted(this)) return
       this.setState({
         total: resp.total,
         dataSource:resp.list,
@@ -169,6 +171,7 @@ export default class ArticleList extends Component {
       //处理错误
     })
     .finally(()=>{
+      if(!this.updater.isMounted(this)) return
       this.setState({
         isLoading:false
       })
